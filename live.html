@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حساب معدل الحيوية</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #d9f0b7;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 90%;
+            margin: 20px auto;
+            background: #ffffe0;
+            border: 2px solid #a1ca4f;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            background-color: #a1ca4f;
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 1.5rem;
+        }
+
+        .section {
+            margin: 15px 0;
+        }
+
+        .section label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 1rem;
+        }
+
+        .section input {
+            width: 95%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .button {
+            background-color: #7b8e4d;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .button:hover {
+            background-color: #5f6d3a;
+        }
+
+        .result {
+            margin: 15px 0;
+            padding: 10px;
+            background-color: #ffefcf;
+            border: 1px solid #ffa726;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .note, .description {
+            font-size: 0.9rem;
+            color: #555;
+            text-align: justify;
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #e8f5e9;
+            border: 1px solid #66bb6a;
+            border-radius: 5px;
+        }
+
+        canvas {
+            margin: 20px auto;
+            display: block;
+            max-width: 100%;
+        }
+
+        footer {
+            margin-top: 15px;
+            font-size: 0.8rem;
+            color: #777;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>حساب معدل الحيوية</h1>
+
+        <div class="section">
+            <label for="deadBirds">عدد الطيور النافقة</label>
+            <input type="number" id="deadBirds" placeholder="أدخل عدد الطيور النافقة">
+        </div>
+
+        <div class="section">
+            <label for="initialBirds">عدد الطيور في بداية الدورة</label>
+            <input type="number" id="initialBirds" placeholder="أدخل عدد الطيور في بداية الدورة">
+        </div>
+
+        <button class="button" onclick="calculateRate()">احسب</button>
+
+        <div id="result" class="result" style="display: none;"></div>
+
+        <canvas id="myChart" width="400" height="200"></canvas>
+
+        <div class="description">
+            <p>النسبة الحيوية هي مؤشر أساسي يستخدم لتقييم نجاح دورة الإنتاج في تربية الطيور. يتم حسابها من خلال مقارنة عدد الطيور النافقة بعد فترة معينة بعدد الطيور الكلي في بداية الدورة. هذا المؤشر يساعد المربين على تحليل الأداء وتحسين إدارة الصحة العامة للطيور.</p>
+        </div>
+
+        <div class="note">
+            <p>يشير معدل الحيوية إلى نسبة الطيور الحية إلى إجمالي الطيور التي تم تسكينها في بداية الدورة. كما يُعتبر معدل الحيوية مؤشرًا هامًا في تحديد جودة الإدارة وظروف البيئة المحيطة بالطيور. نسبة الحيوية المرتفعة تعكس رعاية ممتازة وصحة جيدة للطيور، بينما النسب المنخفضة قد تشير إلى وجود مشكلات في الرعاية أو البيئة.</p>
+        </div>
+    </div>
+
+    <footer>
+        © 2024 - AviCare-رعاية الطيور
+    </footer>
+
+    <script>
+        function calculateRate() {
+            const deadBirds = document.getElementById('deadBirds').value;
+            const initialBirds = document.getElementById('initialBirds').value;
+            const resultDiv = document.getElementById('result');
+            const chartCanvas = document.getElementById('myChart');
+
+            if (deadBirds === '' || initialBirds === '') {
+                resultDiv.style.display = 'block';
+                resultDiv.textContent = 'يرجى إدخال جميع البيانات المطلوبة.';
+                resultDiv.style.color = 'red';
+                return;
+            }
+
+            const dead = parseInt(deadBirds);
+            const initial = parseInt(initialBirds);
+
+            if (initial === 0 || isNaN(dead) || isNaN(initial)) {
+                resultDiv.style.display = 'block';
+                resultDiv.textContent = 'البيانات المدخلة غير صحيحة.';
+                resultDiv.style.color = 'red';
+                return;
+            }
+
+            const survivalRate = ((initial - dead) / initial) * 100;
+            const mortalityRate = 100 - survivalRate;
+
+            resultDiv.style.display = 'block';
+            let message = `معدل الحيوية: ${survivalRate.toFixed(2)}٪
+`;
+
+            if (survivalRate >= 90) {
+                message += 'النسبة جيدة جدًا، الأمور تسير بشكل ممتاز.';
+            } else if (survivalRate >= 75) {
+                message += 'النسبة جيدة، ولكن يمكن تحسين الأداء.';
+            } else if (survivalRate >= 50) {
+                message += 'النسبة متوسطة، تحتاج إلى تحسين كبير.';
+            } else {
+                message += 'النسبة منخفضة جدًا، هناك مشكلة كبيرة يجب حلها.';
+            }
+
+            resultDiv.textContent = message;
+            resultDiv.style.color = 'green';
+
+            // رسم المخطط
+            new Chart(chartCanvas, {
+                type: 'doughnut',
+                data: {
+                    labels: ['الطيور الحية', 'الطيور النافقة'],
+                    datasets: [{
+                        data: [survivalRate.toFixed(2), mortalityRate.toFixed(2)],
+                        backgroundColor: ['#66bb6a', '#ef5350']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

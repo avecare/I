@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>جدري الدجاج</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+        }
+        section {
+            padding: 20px;
+            margin: 15px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #4CAF50;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        ul li {
+            margin: 10px 0;
+        }
+        .important {
+            background-color: #ff9800;
+            padding: 10px;
+            border-radius: 5px;
+            color: white;
+        }
+        footer {
+            text-align: center;
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            margin-top: 20px;
+        }
+        .warning {
+            background-color: #ffcc00;
+            color: black;
+            font-size: 1.2em;
+            text-align: center;
+            padding: 10px;
+            font-weight: bold;
+            border: 1px solid #ff9900;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+    </style>
+    <script>
+        // منع النسخ
+        document.addEventListener('copy', function(e) {
+            e.preventDefault();
+            alert('تحذير شديد اللهجة: لا يمكنك نسخ المحتوى من هذه الصفحة! نحن نمنع هذا السلوك تماماً.');
+        });
+
+        // منع تحديد النص
+        document.addEventListener('selectstart', function(e) {
+            e.preventDefault();
+            alert('تحذير: لا يمكنك تحديد النص في هذه الصفحة.');
+        });
+
+        // منع النقر بالزر الأيمن
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            alert('تحذير: لا يمكنك استخدام الزر الأيمن للماوس في هذه الصفحة.');
+        });
+    </script>
+</head>
+<body>
+
+<header>
+    <h1>جدري الدجاج</h1>
+</header>
+
+<div class="warning">
+    <p>تحذير: جميع الحقوق محفوظة، لا يمكن نسخ المحتوى أو نقله بأي شكل من الأشكال.</p>
+</div>
+
+<section>
+    <h2>اعراض جدري الدجاج</h2>
+    <ul>
+        <li>حبوب على وجه الدجاجة وجسمها</li>
+    </ul>
+</section>
+
+<section>
+    <h2>كيفية علاج جدري الدجاج</h2>
+    <ul>
+        <li>دواء جدري بشري يوضع فقط على الحب</li>
+        <li>ملعقة صغيرة من اليرفين على لتر من الماء</li>
+    </ul>
+</section>
+
+<section class="important">
+    <h2>ملاحظات مهمة</h2>
+    <ul>
+        <li>عزل الطير المصاب</li>
+        <li>غسل المشارب والمعالف في اليود والديتول الصلي</li>
+    </ul>
+</section>
+
+<footer>
+    <p>© 2025 جميع الحقوق محفوظة</p>
+</footer>
+
+</body>
+</html>

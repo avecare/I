@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدارة جمع البيض</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #eef2f7;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 100%;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            text-align: center;
+            color: #ffffff;
+            font-size: 2rem;
+            background-color: #4caf50;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            font-size: 1.5rem;
+        }
+        label {
+            font-weight: bold;
+            margin-top: 15px;
+            display: block;
+            font-size: 1rem;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #f4f4f4;
+            color: #555;
+        }
+        td {
+            color: #333;
+        }
+        .profit {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #4caf50;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .delete-btn {
+            background-color: #e74c3c;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .delete-btn:hover {
+            background-color: #c0392b;
+        }
+        @media (max-width: 768px) {
+            h1, h2 {
+                font-size: 1.3rem;
+            }
+            label, input, button {
+                font-size: 0.9rem;
+            }
+            th, td {
+                font-size: 0.8rem;
+                padding: 5px;
+            }
+            .profit {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>إدارة جمع البيض</h1>
+        <form id="eggForm">
+            <label for="startDate">من تاريخ:</label>
+            <input type="date" id="startDate" required>
+
+            <label for="endDate">إلى تاريخ:</label>
+            <input type="date" id="endDate" required>
+
+            <label for="eggs">عدد البيض:</label>
+            <input type="number" id="eggs" placeholder="أدخل عدد البيض" required>
+
+            <label for="price">ثمن البيض (لكل وحدة):</label>
+            <input type="number" id="price" placeholder="أدخل ثمن البيض" required>
+
+            <label for="feedCost">تكلفة الإنتاج:</label>
+            <input type="number" id="feedCost" placeholder="أدخل تكلفة الإنتاج" required>
+
+            <button type="button" onclick="saveData()">حفظ البيانات</button>
+        </form>
+
+        <h2>البيانات المحفوظة:</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>من تاريخ</th>
+                    <th>إلى تاريخ</th>
+                    <th>عدد البيض</th>
+                    <th>ثمن البيض</th>
+                    <th>تكلفة الإنتاج</th>
+                    <th>الربح</th>
+                    <th>حذف</th>
+                </tr>
+            </thead>
+            <tbody id="dataTable">
+                <!-- البيانات ستظهر هنا -->
+            </tbody>
+        </table>
+        <div id="totalProfit" class="profit">إجمالي الربح: 0</div>
+    </div>
+
+    <script>
+        function saveData() {
+            const startDate = document.getElementById('startDate').value;
+            const endDate = document.getElementById('endDate').value;
+            const eggs = document.getElementById('eggs').value;
+            const price = document.getElementById('price').value;
+            const feedCost = document.getElementById('feedCost').value;
+
+            if (!startDate || !endDate || !eggs || !price || !feedCost) {
+                alert('يرجى ملء جميع الحقول!');
+                return;
+            }
+
+            const newData = {
+                startDate: startDate,
+                endDate: endDate,
+                eggs: Number(eggs),
+                price: Number(price),
+                feedCost: Number(feedCost),
+            };
+
+            const savedData = JSON.parse(localStorage.getItem('eggData')) || [];
+            savedData.push(newData);
+            localStorage.setItem('eggData', JSON.stringify(savedData));
+            loadData();
+
+            document.getElementById('eggForm').reset();
+        }
+
+        function deleteRow(index) {
+            const savedData = JSON.parse(localStorage.getItem('eggData')) || [];
+            savedData.splice(index, 1);
+            localStorage.setItem('eggData', JSON.stringify(savedData));
+            loadData();
+        }
+
+        function loadData() {
+            const savedData = JSON.parse(localStorage.getItem('eggData')) || [];
+            const table = document.getElementById('dataTable');
+            const totalProfitElement = document.getElementById('totalProfit');
+            let totalProfit = 0;
+
+            table.innerHTML = '';
+            savedData.forEach((entry, index) => {
+                const profit = (entry.price * entry.eggs) - entry.feedCost;
+                totalProfit += profit;
+
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${entry.startDate}</td>
+                    <td>${entry.endDate}</td>
+                    <td>${entry.eggs}</td>
+                    <td>${entry.price}</td>
+                    <td>${entry.feedCost}</td>
+                    <td>${profit.toFixed(2)}</td>
+                    <td><button class="delete-btn" onclick="deleteRow(${index})">حذف</button></td>
+                `;
+                table.appendChild(row);
+            });
+
+            totalProfitElement.textContent = `إجمالي الربح: ${totalProfit.toFixed(2)} دينار`;
+        }
+
+        loadData();
+    </script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إستقبال الصوص</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to bottom right, #ff7eb3, #ff758c, #ff9a9e);
+            color: white;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            margin-bottom: 30px;
+        }
+
+        .home-icon {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 2.5rem;
+            color: #fff;
+            cursor: pointer;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .home-icon:hover {
+            color: #ffb3c1;
+            transform: scale(1.2);
+        }
+
+        .button-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .button-container a {
+            text-decoration: none;
+        }
+
+        button {
+            background: linear-gradient(to right, #ff758c, #ff7eb3);
+            color: white;
+            border: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            padding: 15px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: skewX(-45deg);
+            transition: left 0.5s ease;
+        }
+
+        button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        button:hover::before {
+            left: 100%;
+        }
+
+        button:active {
+            transform: scale(0.95);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        footer {
+            position: absolute;
+            bottom: 20px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+    </style>
+</head>
+<body>
+    <!-- العنوان -->
+    <h1>إستقبال الصوص</h1>
+
+    <!-- أيقونة المنزل -->
+    <div class="home-icon" onclick="window.location.href='index.html';">
+        ⌂
+    </div>
+
+    <!-- الأزرار -->
+    <div class="button-container">
+        <a href="sosorginal.html" target="_blank">
+            <button>إستقبال الصوص العادي</button>
+        </a>
+        <a href="sosten.html" target="_blank">
+            <button>إستقبال صوص التين</button>
+        </a>
+        <a href="soshabash.html" target="_blank">
+            <button>إستقبال صوص الحبش</button>
+        </a>
+        <a href="sosnew.html" target="_blank">
+            <button>إستقبال الدجاج الذي تم شراؤه</button>
+        </a>
+    </div>
+
+    <!-- الفوتر -->
+   
+</body>
+</html>

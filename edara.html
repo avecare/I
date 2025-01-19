@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدارة معلومات الدجاج</title>
+    <style>
+        body {
+            font-family: 'Tajawal', sans-serif;
+            direction: rtl;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #ff7043;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 15px;
+        }
+
+        .add-chicken {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .add-chicken input, .add-chicken textarea, .add-chicken button {
+            width: 100%;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .add-chicken button {
+            background-color: #ff7043;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .add-chicken button:hover {
+            background-color: #e64a19;
+        }
+
+        .chicken-card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .chicken-card img {
+            width: 100px;
+            height: 100px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .chicken-card .details {
+            margin-bottom: 15px;
+        }
+
+        .chicken-card .details h3 {
+            margin: 0;
+            font-size: 18px;
+            color: #ff7043;
+        }
+
+        .chicken-card .details p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .delete-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: #e64a19;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 10px;
+            cursor: pointer;
+        }
+
+        .delete-btn:hover {
+            background-color: #d32f2f;
+        }
+
+        .add-medication, .add-disease {
+            margin-top: 10px;
+        }
+
+        .add-medication input, .add-disease input {
+            width: calc(100% - 100px);
+            padding: 5px;
+            margin-right: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .add-medication button, .add-disease button {
+            width: 80px;
+            padding: 5px;
+            background-color: #ff7043;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .add-medication button:hover, .add-disease button:hover {
+            background-color: #e64a19;
+        }
+
+        .chicken-card ul {
+            padding-left: 20px;
+            list-style-type: circle;
+        }
+    </style>
+</head>
+<body>
+    <header>إدارة معلومات الدجاج</header>
+    <div class="container">
+        <div class="add-chicken">
+            <h3>إضافة دجاجة جديدة</h3>
+            <input type="text" id="name" placeholder="اسم الدجاجة" required>
+            <input type="date" id="hatchDate" required>
+            <textarea id="notes" placeholder="ملاحظات"></textarea>
+            <input type="file" id="image" accept="image/*">
+            <button onclick="addChicken()">إضافة دجاجة</button>
+        </div>
+
+        <div id="chickenList"></div>
+    </div>
+
+    <script>
+        const chickenList = document.getElementById('chickenList');
+
+        window.onload = loadChickens;
+
+        function loadChickens() {
+            const chickens = JSON.parse(localStorage.getItem("chickens")) || [];
+            chickenList.innerHTML = "";  // Clear the current list
+            chickens.forEach(renderChicken);
+        }
+
+        function saveChickens(chickens) {
+            localStorage.setItem("chickens", JSON.stringify(chickens));
+        }
+
+        function addChicken() {
+            const name = document.getElementById('name').value.trim();
+            const hatchDate = document.getElementById('hatchDate').value;
+            const notes = document.getElementById('notes').value.trim();
+            const image = document.getElementById('image').files[0];
+
+            if (!name || !hatchDate) {
+                alert("يرجى إدخال اسم الدجاجة وتاريخ الفقس.");
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function () {
+                const chickens = JSON.parse(localStorage.getItem("chickens")) || [];
+                const chicken = {
+                    id: Date.now(),
+                    name,
+                    hatchDate,
+                    notes,
+                    img: reader.result,
+                    medications: [],
+                    diseases: []
+                };
+
+                chickens.push(chicken);
+                saveChickens(chickens);
+                renderChicken(chicken);
+
+                // تفريغ الحقول بعد إضافة الدجاجة
+                document.getElementById('name').value = '';
+                document.getElementById('hatchDate').value = '';
+                document.getElementById('notes').value = '';
+                document.getElementById('image').value = '';
+            };
+
+            if (image) {
+                reader.readAsDataURL(image);
+            } else {
+                alert("يرجى اختيار صورة للدجاجة.");
+            }
+        }
+
+        function renderChicken(chicken) {
+            const card = document.createElement('div');
+            card.className = 'chicken-card';
+            card.innerHTML = `
+                <img src="${chicken.img}" alt="صورة الدجاجة">
+                <div class="details">
+                    <h3>${chicken.name}</h3>
+                    <p>تاريخ الفقس: ${new Date(chicken.hatchDate).toLocaleDateString()}</p>
+                    <p>العمر: ${calculateAge(chicken.hatchDate)} يوم</p>
+                    <p>ملاحظات: ${chicken.notes || "لا توجد ملاحظات"}</p>
+                </div>
+                <div class="add-medication">
+                    <input id="med-${chicken.id}" placeholder="إضافة مطعوم">
+                    <button onclick="addMedication(${chicken.id})">إضافة</button>
+                </div>
+                <ul id="medications-${chicken.id}">
+                    ${chicken.medications.map(med => `<li>${med}</li>`).join('')}
+                </ul>
+                <div class="add-disease">
+                    <input id="dis-${chicken.id}" placeholder="إضافة مرض">
+                    <button onclick="addDisease(${chicken.id})">إضافة</button>
+                </div>
+                <ul id="diseases-${chicken.id}">
+                    ${chicken.diseases.map(dis => `<li>${dis}</li>`).join('')}
+                </ul>
+                <button class="delete-btn" onclick="deleteChicken(${chicken.id})">حذف</button>
+            `;
+            chickenList.appendChild(card);
+        }
+
+        function calculateAge(hatchDate) {
+            const today = new Date();
+            const birthDate = new Date(hatchDate);
+            return Math.floor((today - birthDate) / (1000 * 60 * 60 * 24));
+        }
+
+        function addMedication(id) {
+            const input = document.getElementById(`med-${id}`);
+            const medication = input.value.trim();
+
+            if (medication) {
+                const chickens = JSON.parse(localStorage.getItem("chickens")) || [];
+                const chicken = chickens.find(c => c.id === id);
+                chicken.medications.push(medication);
+                saveChickens(chickens);
+                loadChickens();
+            }
+        }
+
+        function addDisease(id) {
+            const input = document.getElementById(`dis-${id}`);
+            const disease = input.value.trim();
+
+            if (disease) {
+                const chickens = JSON.parse(localStorage.getItem("chickens")) || [];
+                const chicken = chickens.find(c => c.id === id);
+                chicken.diseases.push(disease);
+                saveChickens(chickens);
+                loadChickens();
+            }
+        }
+
+        function deleteChicken(id) {
+            const chickens = JSON.parse(localStorage.getItem("chickens")) || [];
+            const updatedChickens = chickens.filter(chicken => chicken.id !== id);
+            saveChickens(updatedChickens);
+            loadChickens();
+        }
+    </script>
+</body>
+</html>

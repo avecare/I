@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حاسبة أعلاف الطيور</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            direction: rtl;
+            text-align: center;
+            background-color: #f3f4f6;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #444;
+            font-size: 24px;
+        }
+        .calculator {
+            max-width: 500px;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            color: #333;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h1>حاسبة أعلاف الطيور</h1>
+    <div class="calculator">
+        <label for="age">عمر الطير (بالأيام):</label>
+        <input type="number" id="age" placeholder="أدخل عمر الطير (بالأيام)">
+
+        <label for="quantity">عدد الطيور:</label>
+        <input type="number" id="quantity" placeholder="أدخل عدد الطيور">
+
+        <label for="birdType">نوع الطيور:</label>
+        <select id="birdType">
+            <option value="">اختر نوع الطيور</option>
+            <option value="broiler">الدجاج اللاحم</option>
+            <option value="layer">الدجاج البياض</option>
+            <option value="chick">الصوص</option>
+            <option value="quail">السمان</option>
+            <option value="turkey">الحبش</option>
+            <option value="duck">البط</option>
+            <option value="goose">الوز</option>
+            <option value="peacock">الطاووس</option>
+        </select>
+
+        <button onclick="calculateFeed()">حساب</button>
+        
+        <div class="result" id="result">النتيجة ستظهر هنا</div>
+    </div>
+
+    <script>
+        function calculateFeed() {
+            const age = parseInt(document.getElementById('age').value);
+            const quantity = parseInt(document.getElementById('quantity').value);
+            const birdType = document.getElementById('birdType').value;
+            const result = document.getElementById('result');
+
+            if (isNaN(age) || isNaN(quantity) || !birdType) {
+                result.textContent = "يرجى إدخال جميع القيم بشكل صحيح.";
+                return;
+            }
+
+            let feedAmountPerBird = 0;
+            let weightPerBird = 0;
+
+            // البيانات الخاصة بكل نوع
+            const birdData = {
+                broiler: [
+                    { age: 1, weight: 57, feed: 13 },
+                    { age: 2, weight: 82, feed: 13 },
+                    { age: 3, weight: 89, feed: 13 },
+                    { age: 4, weight: 109, feed: 13 },
+                    { age: 5, weight: 131, feed: 13 },
+                    { age: 6, weight: 155, feed: 13 },
+                    { age: 7, weight: 182, feed: 13 },
+                    { age: 8, weight: 212, feed: 38 },
+                    { age: 9, weight: 246, feed: 42 },
+                    { age: 10, weight: 281, feed: 47 },
+                    { age: 11, weight: 320, feed: 51 },
+                    { age: 12, weight: 362, feed: 57 },
+                    { age: 13, weight: 407, feed: 61 },
+                    { age: 14, weight: 455, feed: 66 },
+                    { age: 15, weight: 506, feed: 73 },
+                    { age: 16, weight: 561, feed: 78 },
+                    { age: 17, weight: 618, feed: 83 },
+                    { age: 18, weight: 678, feed: 89 },
+                    { age: 19, weight: 741, feed: 95 },
+                    { age: 20, weight: 874, feed: 101 },
+                    { age: 21, weight: 944, feed: 107 },
+                    { age: 22, weight: 1017, feed: 114 },
+                    { age: 23, weight: 1093, feed: 119 },
+                    { age: 24, weight: 1170, feed: 125 },
+                    { age: 25, weight: 1249, feed: 131 },
+                    { age: 26, weight: 1329, feed: 136 },
+                    { age: 27, weight: 1412, feed: 143 },
+                    { age: 28, weight: 1469, feed: 148 },
+                    { age: 29, weight: 1581, feed: 154 },
+                    { age: 30, weight: 1667, feed: 159 },
+                    { age: 31, weight: 1754, feed: 164 },
+                    { age: 32, weight: 1843, feed: 170 },
+                    { age: 33, weight: 1932, feed: 174 },
+                    { age: 34, weight: 2021, feed: 179 },
+                    { age: 35, weight: 2111, feed: 183 },
+                    { age: 36, weight: 2210, feed: 188 },
+                    { age: 37, weight: 2219, feed: 192 },
+                    { age: 38, weight: 2382, feed: 196 },
+                    { age: 39, weight: 2472, feed: 200 },
+                    { age: 40, weight: 2562, feed: 204 },
+                    { age: 41, weight: 2652, feed: 208 },
+                    { age: 42, weight: 2710, feed: 212 },
+                    { age: 43, weight: 2800, feed: 217 },
+                    { age: 44, weight: 2850, feed: 223 },
+                ],
+                layer: { feed: 110 },
+                chick: [
+                    { minAge: 0, maxAge: 28, feed: 20 },
+                    { minAge: 29, maxAge: 56, feed: 50 },
+                    { minAge: 57, maxAge: 84, feed: 70 },
+                    { minAge: 85, maxAge: 112, feed: 90 }
+                ],
+                quail: { feed: 15 },
+                turkey: { feed: 200 },
+                duck: { feed: 150 },
+                goose: { feed: 180 },
+                peacock: { feed: 250 }
+            };
+
+            if (birdType === "broiler") {
+                const birdInfo = birdData.broiler.find(b => b.age === age);
+                if (!birdInfo) {
+                    result.textContent = "لا توجد بيانات متوفرة لعمر هذا الطائر.";
+                    return;
+                }
+                feedAmountPerBird = birdInfo.feed;
+                weightPerBird = birdInfo.weight;
+            } else if (birdType === "chick") {
+                const chickFeedData = birdData.chick.find(
+                    range => age >= range.minAge && age <= range.maxAge
+                );
+                if (chickFeedData) {
+                    feedAmountPerBird = chickFeedData.feed;
+                } else {
+                    result.textContent = "لا توجد بيانات متوفرة لعمر هذا الصوص.";
+                    return;
+                }
+            } else {
+                feedAmountPerBird = birdData[birdType].feed;
+            }
+
+            const totalFeed = feedAmountPerBird * quantity;
+
+            result.textContent = `
+                وزن الطائر الواحد: ${weightPerBird || 'غير متوفر'} غرام. 
+                كمية الأعلاف المطلوبة لكل طائر: ${feedAmountPerBird} غرام. 
+                الكمية الإجمالية: ${(totalFeed).toFixed(0)} غرام.
+            `;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سؤال وجواب</title>
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #0078D7, #00A4CC);
+            color: #fff;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            background: #fff;
+            color: #333;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+        }
+        h1 {
+            text-align: center;
+            font-size: 32px;
+            color: #0078D7;
+            margin-bottom: 20px;
+        }
+        .faq {
+            margin: 20px 0;
+        }
+        .faq-item {
+            margin-bottom: 20px;
+        }
+        .faq-question {
+            font-size: 20px;
+            font-weight: bold;
+            background: #0078D7;
+            color: #fff;
+            padding: 15px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            position: relative;
+            transition: background 0.3s ease;
+        }
+        .faq-question:hover {
+            background: #005BB5;
+        }
+        .faq-question::after {
+            content: '+';
+            position: absolute;
+            right: 20px;
+            font-size: 24px;
+            transition: transform 0.3s ease, content 0.3s ease;
+        }
+        .faq-question.active::after {
+            content: '-';
+            transform: rotate(180deg);
+        }
+        .faq-answer {
+            display: none;
+            font-size: 18px;
+            background: #f9f9f9;
+            color: #555;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-top: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .faq-answer.active {
+            display: block;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>أسئلة وأجوبة</h1>
+        <div class="faq">
+            <div class="faq-item">
+                <div class="faq-question">ما هو AviCare؟</div>
+                <div class="faq-answer">AviCare هو تطبيق يقدم حلولاً طبيعية ووصفات خاصة للعناية بالدواجن، بالإضافة إلى تتبع صحتها.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">كيف يمكنني استخدام الوصفات الطبيعية؟</div>
+                <div class="faq-answer">يمكنك الاطلاع على قائمة الوصفات في التطبيق واتباع الخطوات الموضحة لتطبيق العلاج على الدواجن.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">هل التطبيق مجاني؟</div>
+                <div class="faq-answer">نعم، التطبيق مجاني مع إمكانية توفر ميزات إضافية مجانية في المستقبل.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">كيف يمكنني تتبع صحة الدواجن؟</div>
+                <div class="faq-answer">يمكنك استخدام خاصية تتبع صحة الدواجن في التطبيق لتسجيل الملاحظات اليومية.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">هل يدعم التطبيق لغات متعددة؟</div>
+                <div class="faq-answer">حالياً، التطبيق متوفر باللغة العربية، ونعمل على دعم لغات إضافية في المستقبل.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">هل يمكنني إضافة وصفات جديدة للتطبيق؟</div>
+                <div class="faq-answer">حالياً، التطبيق لا يدعم إضافة وصفات جديدة من قبل المستخدم، ولكننا ندرس إضافة هذه الميزة في التحديثات القادمة. في حال كان عندك وصفة معينة بإمكانك إرسالها لنا عبر الواتساب أو الإيميل من قسم حول التطبيق.</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const questions = document.querySelectorAll('.faq-question');
+        questions.forEach(question => {
+            question.addEventListener('click', () => {
+                question.classList.toggle('active');
+                const answer = question.nextElementSibling;
+                answer.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>

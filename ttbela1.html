@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تتبيلة</title>
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            direction: rtl;
+            background-color: #e9ecef;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            user-select: none; /* منع تحديد النص */
+        }
+        header {
+            background: linear-gradient(135deg, #1abc9c, #16a085);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        header h1 {
+            font-size: 2.5rem;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+        .container {
+            width: 90%;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #16a085;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 10px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+        li {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            padding-left: 30px;
+            position: relative;
+            line-height: 1.8;
+        }
+        li::before {
+            content: "✔";
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: #16a085;
+            font-size: 1.2rem;
+        }
+        .highlight {
+            font-weight: bold;
+            color: #e74c3c;
+        }
+        footer {
+            text-align: center;
+            background: #16a085;
+            color: white;
+            padding: 15px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+        }
+        footer p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            .container {
+                width: 95%;
+                padding: 15px;
+            }
+            h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+    <script>
+        document.addEventListener('copy', function(e) {
+            e.preventDefault();
+            alert("لا يمكنك نسخ المحتوى من هذه الصفحة.");
+        });
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            alert("الزر الأيمن محظور! لا يمكنك استخدامه في هذه الصفحة.");
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <h1>تتبيلة</h1>
+    </header>
+
+    <div class="container">
+        <h2>مكونات التتبيلة</h2>
+        <ul>
+            <li><span class="highlight">رأس بصل:</span> مقطع إلى أرباع.</li>
+            <li><span class="highlight">5 فصوص ثوم:</span> وسط الحجم مع القشرة أو بدون.</li>
+            <li><span class="highlight">ليمونة:</span> وسط الحجم، مقطعة إلى أرباع مع قشرتها.</li>
+            <li><span class="highlight">كأس خل:</span> أي نوع متوفر من الخل.</li>
+        </ul>
+
+        <h2>طريقة التحضير</h2>
+        <ul>
+            <li>توضع جميع المكونات في خلاط كهربائي حتى تصبح متجانسة.</li>
+            <li>يتم تصفية الخليط للحصول على سائل نقي.</li>
+            <li>يُضاف مقدار فنجان قهوة من الخليط إلى لتر ماء للشرب.</li>
+            <li>ما يتبقى يُمزج مع العلف.</li>
+        </ul>
+
+        <h2>طريقة الاستخدام</h2>
+        <ul>
+            <li>تستخدم كوقاية من الأمراض وفتح شهية.</li>
+            <li>تحسن التحويل الغذائي وتعزز المناعة.</li>
+            <li>تستخدم كمضاد بكتيري وفيروسي خفيف.</li>
+        </ul>
+
+        <h2>ملاحظة</h2>
+        <ul>
+            <li>يمكن تقديم التتبيلة مرة أو مرتين أسبوعياً.</li>
+        </ul>
+    </div>
+
+</body>
+</html>

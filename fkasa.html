@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام التفقيس - إدارة الأفواج</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 20px;
+            direction: rtl;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+        }
+
+        h1 {
+            font-size: 32px;
+            color: #27ae60;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 18px;
+            color: #555;
+            display: block;
+            margin-bottom: 5px;
+            text-align: right;
+        }
+
+        input, select, button {
+            font-size: 16px;
+            padding: 10px;
+            margin-bottom: 15px;
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 8px;
+        }
+
+        input[type="date"], input[type="number"], select {
+            border: 2px solid #27ae60;
+        }
+
+        button {
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #2ecc71;
+        }
+
+        .batch {
+            background-color: #ecf0f1;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+
+        .batch-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .batch-details {
+            margin-top: 10px;
+        }
+
+        .batch button {
+            width: auto;
+            margin-top: 5px;
+            padding: 5px 10px;
+        }
+
+        .footer {
+            font-size: 14px;
+            color: #95a5a6;
+            margin-top: 30px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>إدارة أفواج التفقيس</h1>
+
+    <div>
+        <label for="bird-type">نوع الطائر</label>
+        <select id="bird-type">
+            <option value="" disabled selected>اختر نوع الطائر</option>
+            <option value="chicken">دجاج</option>
+            <option value="duck">بطة</option>
+            <option value="quail">سمان</option>
+            <option value="turkey">حبش</option>
+            <option value="goose">أوز</option>
+            <option value="peacock">طاووس</option>
+        </select>
+
+        <label for="batch-name">اسم الفوج</label>
+        <input type="text" id="batch-name" placeholder="أدخل اسم الفوج">
+
+        <label for="start-date">تاريخ بدء التفقيس</label>
+        <input type="date" id="start-date">
+
+        <label for="egg-count">عدد البيض</label>
+        <input type="number" id="egg-count" placeholder="أدخل عدد البيض">
+
+        <label for="temp">درجة الحرارة (°C)</label>
+        <input type="number" id="temp" placeholder="درجة الحرارة" readonly>
+
+        <label for="humidity">الرطوبة (%)</label>
+        <input type="number" id="humidity" placeholder="الرطوبة" readonly>
+
+        <button id="add-batch">إضافة الفوج</button>
+    </div>
+
+    <div id="batches"></div>
+
+    <div class="footer">
+        <p>تطبيق AviCare - رعاية الطيور</p>
+    </div>
+</div>
+
+<script>
+    const birdSettings = {
+        chicken: { temperature: 37.5, humidity: 65, incubationDays: 21 },
+        duck: { temperature: 37.2, humidity: 55, incubationDays: 28 },
+        quail: { temperature: 37.5, humidity: 65, incubationDays: 17 },
+        turkey: { temperature: 37.5, humidity: 55, incubationDays: 28 },
+        goose: { temperature: 37.0, humidity: 60, incubationDays: 30 },
+        peacock: { temperature: 37.4, humidity: 65, incubationDays: 28 }
+    };
+
+    const batches = JSON.parse(localStorage.getItem("batches")) || [];
+
+    function saveBatches() {
+        localStorage.setItem("batches", JSON.stringify(batches));
+    }
+
+    function renderBatches() {
+        const batchesContainer = document.getElementById("batches");
+        batchesContainer.innerHTML = "";
+
+        batches.forEach((batch, index) => {
+            const batchElement = document.createElement("div");
+            batchElement.className = "batch";
+
+            batchElement.innerHTML = `
+                <div class="batch-header">
+                    <h3>${batch.name}</h3>
+                    <button onclick="deleteBatch(${index})">حذف</button>
+                </div>
+                <div class="batch-details">
+                    <p><strong>نوع الطائر:</strong> ${batch.birdType}</p>
+                    <p><strong>عدد البيض:</strong> ${batch.eggCount}</p>
+                    <p><strong>تاريخ البدء:</strong> ${batch.startDate}</p>
+                    <p><strong>درجة الحرارة:</strong> ${batch.temperature} °C</p>
+                    <p><strong>الرطوبة:</strong> <span id="humidity-${index}">${batch.humidity}</span> %</p>
+                    <p><strong>الوقت المتبقي:</strong> <span id="timer-${index}">جارٍ الحساب...</span></p>
+                </div>
+            `;
+
+            batchesContainer.appendChild(batchElement);
+
+            startCountdown(batch.startDate, batch.incubationDays, `timer-${index}`, `humidity-${index}`, batch.humidity);
+        });
+    }
+
+    function addBatch() {
+        const birdType = document.getElementById("bird-type").value;
+        const name = document.getElementById("batch-name").value;
+        const startDate = document.getElementById("start-date").value;
+        const eggCount = document.getElementById("egg-count").value;
+
+        if (!birdType || !name || !startDate || !eggCount) {
+            alert("يرجى ملء جميع الحقول.");
+            return;
+        }
+
+        const { temperature, humidity, incubationDays } = birdSettings[birdType];
+
+        batches.push({ birdType, name, startDate, eggCount, temperature, humidity, incubationDays });
+        saveBatches();
+        renderBatches();
+
+        document.getElementById("bird-type").value = "";
+        document.getElementById("batch-name").value = "";
+        document.getElementById("start-date").value = "";
+        document.getElementById("egg-count").value = "";
+        document.getElementById("temp").value = "";
+        document.getElementById("humidity").value = "";
+    }
+
+    function deleteBatch(index) {
+        batches.splice(index, 1);
+        saveBatches();
+        renderBatches();
+    }
+
+    function startCountdown(startDate, incubationDays, timerId, humidityId, initialHumidity) {
+        const endDate = new Date(startDate);
+        endDate.setDate(endDate.getDate() + incubationDays);
+
+        const threeDaysBeforeEnd = new Date(endDate);
+        threeDaysBeforeEnd.setDate(threeDaysBeforeEnd.getDate() - 3);
+
+        const timerInterval = setInterval(() => {
+            const now = new Date();
+            const timeRemaining = endDate - now;
+
+            if (timeRemaining <= 0) {
+                document.getElementById(timerId).innerText = "اكتمل التفقيس!";
+                clearInterval(timerInterval);
+                return;
+            }
+
+            const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+            if (now >= threeDaysBeforeEnd) {
+                document.getElementById(humidityId).innerText = 70; // رفع الرطوبة
+            }
+
+            document.getElementById(timerId).innerText = `${days} يوم ${hours} ساعة ${minutes} دقيقة ${seconds} ثانية`;
+        }, 1000);
+    }
+
+    document.getElementById("bird-type").addEventListener("change", (event) => {
+        const birdType = event.target.value;
+        if (birdType && birdSettings[birdType]) {
+            document.getElementById("temp").value = birdSettings[birdType].temperature;
+            document.getElementById("humidity").value = birdSettings[birdType].humidity;
+        }
+    });
+
+    document.getElementById("add-batch").addEventListener("click", addBatch);
+
+    window.onload = renderBatches;
+</script>
+
+</body>
+</html>

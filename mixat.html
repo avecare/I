@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أزرار وصفات</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ff6ec7, #ff8e53, #ffbd39);
+            background-size: 300% 300%;
+            animation: gradientAnimation 8s ease infinite;
+            color: white;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .home-icon {
+            font-size: 30px;
+            color: white;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .home-icon:hover {
+            color: #ff4081;
+            transform: scale(1.2);
+        }
+
+        .search-container {
+            margin-top: 150px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            padding: 0 20px;
+        }
+
+        .search-input {
+            width: 70%;
+            padding: 8px 12px;
+            font-size: 14px;
+            border: 2px solid #ff4081;
+            border-radius: 25px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: #ff80ab;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .button-container {
+            margin-top: 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 0 20px;
+            opacity: 0;
+            animation: fadeInButtons 1s ease-out forwards;
+        }
+
+        @keyframes fadeInButtons {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        button {
+            background-color: #ff4081;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            padding: 12px 24px;
+            border: 2px solid #ff4081;
+            border-radius: 30px;
+            cursor: pointer;
+            outline: none;
+            position: relative;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+            transition: all 0.4s ease;
+            width: 100%;
+            text-align: center;
+        }
+
+        button:hover {
+            background-color: #ff80ab;
+            border-color: #ff80ab;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+            transform: scale(1.05);
+        }
+
+        button:active {
+            background-color: #ff1d5e;
+            transform: scale(0.95);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- أيقونة المنزل -->
+    <div class="home-icon" onclick="playClickSound(); window.location.href='index.html';">
+        <i class="fas fa-home"></i>
+    </div>
+
+    <!-- حقل البحث -->
+    <div class="search-container">
+        <input 
+            type="text" 
+            class="search-input" 
+            placeholder="ابحث عن وصفة..." 
+            oninput="filterButtons(event)"
+        >
+    </div>
+
+    <!-- الأزرار -->
+    <div class="button-container" id="buttonContainer">
+        <a href="alafahmar.html" onclick="playClickSound()"><button>خلطة العلف الأحمر</button></a>
+        <a href="alkaesom.html" onclick="playClickSound()"><button>خلطة القيصوم</button></a>
+        <a href="antifaeros.html" onclick="playClickSound()"><button>مذيب فايروسي ومقشع</button></a>
+        <a href="kroop.html" onclick="playClickSound()"><button>خلطة الخروب</button></a>
+        <a href="badeel.html" onclick="playClickSound()"><button>خلطة بديل الصوبات والتدفئة</button></a>
+        <a href="nwatamer.html" onclick="playClickSound()"><button>نوى التمر</button></a>
+        <a href="tee.html" onclick="playClickSound()"><button>الشاي المر</button></a>
+        <a href="mdadfaeros.html" onclick="playClickSound()"><button>مضاد فايروسي للشتوية والبرد</button></a>
+        <a href="winter11.html" onclick="playClickSound()"><button>خلطة الأجواء الباردة 1</button></a>
+        <a href="winter22.html" onclick="playClickSound()"><button>خلطة الأجواء الباردة 2</button></a>
+        <a href="winter3.html" onclick="playClickSound()"><button>خلطة الأجواء الباردة 3</button></a>
+        <a href="teegreen.html" onclick="playClickSound()"><button>الشاي الأخضر</button></a>
+        <a href="Moerenga.html" onclick="playClickSound()"><button>المورينجا</button></a>
+        <a href="nksvitmen.html" onclick="playClickSound()"><button>خلطة وقائية لنقص الفيتامينات</button></a>
+        <a href="zbeb.html" onclick="playClickSound()"><button>الزبيب</button></a>
+         <a href="kardel.html" onclick="playClickSound()"><button>الخردل </button></a>
+        <a href="mdadfaeros.html" onclick="playClickSound()"><button>مضاد للشتوية والصقيع</button></a>
+         <a href="detol.html" onclick="playClickSound()"><button> الديتول</button></a>
+          <a href="mixat.html" onclick="playClickSound()"><button>قريباً  </button></a>
+    </div>
+
+    <!-- إضافة عنصر الصوت -->
+    <audio id="clickSound" src="https://g.top4top.io/m_3242my13m3.mp3" preload="auto"></audio>
+
+    <script>
+        // دالة لتشغيل صوت النقر
+        function playClickSound() {
+            const clickSound = document.getElementById('clickSound');
+            clickSound.play();
+        }
+
+        // دالة البحث عن الزر
+        function filterButtons(event) {
+            const searchTerm = event.target.value.toLowerCase();
+            const buttons = document.querySelectorAll('.button-container a');
+
+            buttons.forEach(button => {
+                const text = button.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    button.style.display = "block";
+                } else {
+                    button.style.display = "none";
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>

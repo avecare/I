@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مايكروبلازما دمعة العين</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 850px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #004d40;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #2c3e50;
+            margin-top: 20px;
+        }
+        p {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.8;
+        }
+        ul {
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        .audio-player {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .audio-player button {
+            background: #004d40;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .audio-player button:hover {
+            background: #00796b;
+        }
+        .note {
+            background-color: #fff3cd;
+            border-left: 4px solid #f39c12;
+            padding: 15px;
+            margin-top: 30px;
+        }
+        .image-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .image-container img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body oncopy="preventCopy()">
+    <div class="container">
+        <h1>مايكروبلازما دمعة العين</h1>
+
+        <!-- إضافة صورة -->
+        <div class="image-container">
+            <img src="https://d.top4top.io/p_3270zzhu60.jpg" alt="صورة توضيحية" />
+        </div>
+
+        <h2>ورم الجفن والرغوة في العين</h2>
+        <p>مايكروبلازما دمعة العين هو التهاب يصيب العين، ويتسبب في تورم الجفن وظهور رغوة في العين. المسبب لهذا المرض قد يكون الغبار أو فرش النشارة الناعمة.</p>
+
+        <h2>المسبب</h2>
+        <p>يا إما من الغبار أو من الفرش النشارة الناعمة.</p>
+
+        <h2>العلاج</h2>
+        <ul>
+            <li>وضع بنسلين في العين مع دهن الجفن بالكامل.</li>
+            <li>إعطاء الطير المصاب مقشعات (أدوية بشرية) مثل:
+                <ul>
+                    <li>بيكوف</li>
+                    <li>ريفاد</li>
+                    <li>نوكف بنسبة 2 سم³ مباشرة في الفم.</li>
+                </ul>
+            </li>
+            <li>زوماكس بودرة (كمية بحجم حبة العدس) تخلط على لتر ماء، تقدم يومياً لمدة 5 إلى 7 أيام.</li>
+            <li>في حال تطور الإصابة وتورم بحجم حبة الحمص (مايكروبالزما):
+                <ul>
+                    <li>تنفيذ نفس العلاج أعلاه.</li>
+                    <li>إضافة بنسلين موضعي للعين ودهن الوجه بالكامل.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <div class="audio-player">
+            <button onclick="readText()">استمع إلى النص</button>
+        </div>
+
+        <div class="note">
+            <p><strong>ملاحظة:</strong> تأكد من النظافة المستمرة للعين والمعالف، وتجنب بيئة ملوثة تؤدي إلى تكرار الإصابة.</p>
+        </div>
+    </div>
+
+    <script>
+        function preventCopy() {
+            alert("عذرًا، النسخ غير مسموح!");
+            event.preventDefault(); // منع النسخ
+        }
+
+        function readText() {
+            const text = `
+                مايكروبالزما دمعة العين.
+                المسبب: يا إما من الغبار أو من الفرش النشارة الناعمة.
+                العلاج: وضع بنسلين في العين مع دهن الجفن بالكامل.
+                إعطاء الطير المصاب مقشعات (أدوية بشرية) مثل بيكوف، ريفاد، أو نوكف بنسبة 2 سم³ مباشرة في الفم.
+                زوماكس بودرة بكمية بحجم حبة العدس على لتر ماء يومياً لمدة 5 إلى 7 أيام.
+                إذا تطورت الإصابة ووصل التورم لحجم حبة الحمص، ينفذ العلاج أعلاه بالإضافة إلى بنسلين موضعي للعين ودهن الوجه بالكامل.
+            `;
+            
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = "ar-SA";
+
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert("متصفحك لا يدعم القراءة الصوتية.");
+            }
+        }
+    </script>
+</body>
+</html>

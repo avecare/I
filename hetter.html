@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام الفقاسات</title>
+    <style>
+        body {
+            font-family: "Tajawal", sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f8fafc, #e3f2fd);
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            padding: 30px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+            font-weight: bold;
+        }
+
+        p {
+            text-align: justify;
+            margin-bottom: 20px;
+            line-height: 1.8;
+            font-size: 1.1em;
+        }
+
+        ul {
+            list-style: square inside;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+
+        ul li {
+            margin: 10px 0;
+            font-size: 1.1em;
+        }
+
+        .button {
+            display: block;
+            width: 150px;
+            margin: 20px auto 0;
+            padding: 10px 20px;
+            background: #007bff;
+            color: #ffffff;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 1.1em;
+            transition: background 0.3s;
+        }
+
+        .button:hover {
+            background: #0056b3;
+        }
+
+        .no-copy {
+            user-select: none;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <script>
+        document.addEventListener('contextmenu', (e) => e.preventDefault());
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && (e.key === 'c' || e.key === 'u' || e.key === 's')) {
+                e.preventDefault();
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="container no-copy">
+        <h1>نظام الفقاسات</h1>
+        <p>
+            بالنسبة لنظام الفقاسات، هناك جدل حول ضبط الحرارة والرطوبة. البعض يقول إن الحرارة يجب أن تكون 37.7 والرطوبة 65، والبعض الآخر يفضل 37.5. لكن في النهاية، الأمر ليس قرارنا، بل يعتمد على تصميم الفقاسة نفسها. المصمم هو الأعلم بطريقة توزيع الحرارة والرطوبة التي تتناسب مع تصميمه.
+        </p>
+        <p>
+            توزيع الحرارة يعتمد على عوامل متعددة مثل المروحة وفتحات التهوية، أما الرطوبة فلها طرق مختلفة لتحقيقها، مثل استخدام حوض ماء، أو جهاز ترطيب (فواحة)، أو حتى أنظمة تعمل من الجانبين.
+        </p>
+        <p>
+            تصميم الفقاسة يختلف: بعضها يحتوي على غرفة خدمات، بعضها يعتمد على السقف أو وجود حوض ماء تحت البيض. وهناك فرق بين نظام الرولات ونظام قوالب التقليب:
+        </p>
+        <ul>
+            <li><strong>الرولات:</strong> تحتاج عمق ومساحة مناسبة في الحوض لضمان التبخر.</li>
+            <li><strong>القوالب:</strong> نظرًا لتوزيعها، تحتاج تأكيد وجود الماء تحت جميع القوالب أو تحت المروحة إذا كانت في السقف، أو بجانب المروحة لسحب الرطوبة بشكل مناسب.</li>
+        </ul>
+        <p>
+            التصميم قد يتضمن أنظمة تهوية مختلفة (مثل نظام الدكت)، ولهذا يجب التأكد من وصول الهواء بشكل متساوٍ إلى جميع أطراف القوالب. يمكن التحقق باستخدام ولاعة للتأكد من أن قوة الشفط والزفير متساوية سواء في حالة الحاضنة فارغة أو مليئة.
+        </p>
+        <p>
+            لماذا هذا مهم؟ لأن عدم التوزيع المتساوي قد يؤدي إلى تباين في الفقس، بحيث تفقس البيوض القريبة من المروحة والهيتر أولاً، بينما تتأخر الأخرى يومين. أيضًا، يجب التأكد من سلامة البيض، بحيث يكون غير مشروخ وعمره جديدًا وليس قديماً.
+        </p>
+        <p>
+            لمزيد من المعلومات حول <a href="go:egg" target="_blank">طريقة معرفة عمر البيض من هنا</a>.
+        
+</body>
+</html>

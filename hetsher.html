@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>وصفة مطعوم هتشر أي بي</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.8;
+            user-select: none; /* منع تحديد النص */
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            font-size: 2rem;
+            text-align: center;
+            color: #444;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 1.2rem;
+            margin: 10px 0;
+        }
+        .recipe {
+            background-color: #f7f7f7;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            border: 1px solid #ddd;
+        }
+        .recipe-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #555;
+        }
+    </style>
+    <script>
+        // منع النسخ
+        document.addEventListener('copy', function(e) {
+            e.preventDefault();
+            alert("تحذير! لا يمكنك نسخ المحتوى من هذه الصفحة. هذا محظور تمامًا!");
+        });
+
+        // منع الزر الأيمن
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            alert("تحذير! لا يمكنك استخدام الزر الأيمن على هذه الصفحة.");
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>وصفة مطعوم هتشر أي بي</h1>
+        <p>الوصفة مكونة من:</p>
+        <div class="recipe">
+            <p class="recipe-title">المكونات:</p>
+            <ul>
+                <li>نصف ملعقة صغيرة من زيت القرفة</li>
+                <li>نصف ملعقة صغيرة من زيت حبة البركة أو القزحة</li>
+                <li>نصف ملعقة صغيرة من زيت السمسم</li>
+            </ul>
+            <p class="recipe-title">طريقة التحضير:</p>
+            <p>
+                نخلط المكونات جيداً في فنجان قهوة بسيط، ثم نضيفها إلى لتر ماء.
+            </p>
+            <p>
+                يتم تقديم المزيج لمدة من 8 إلى 12 ساعة، ويجدد حتى نكمل 24 ساعة.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
