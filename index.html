@@ -277,16 +277,15 @@
             }
         }
 
-        // عرض الرسالة المنبثقة مرة واحدة فقط في اليوم
-        if (!localStorage.getItem('popupShown')) {
+        // عرض الرسالة مباشرة عند تحميل الصفحة
+        window.onload = function() {
             setTimeout(() => {
                 document.getElementById('popupMessage').style.display = 'block';
-            }, 1000);
-        }
+            }, 1000); // تظهر بعد ثانية من تحميل الصفحة
+        };
 
         function closePopup() {
             document.getElementById('popupMessage').style.display = 'none';
-            localStorage.setItem('popupShown', 'true');
         }
     </script>
 </body>
