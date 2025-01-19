@@ -4,15 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>رعاية الدجاج</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     <style>
+        /* التصميم العام */
         body {
             font-family: 'Cairo', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #d4e5a7;
-            color: #000;
+            background-color: #f4f4f4;
+            color: #333;
             transition: background-color 0.5s, color 0.5s;
             display: flex;
             flex-direction: column;
@@ -20,57 +21,77 @@
             overflow-x: hidden;
         }
 
+        /* الوضع الليلي */
+        body.dark-mode {
+            background-color: #1a1a1a;
+            color: #f4f4f4;
+        }
+
+        /* الهيدر */
         .header {
-            background-color: #ffda44;
+            background-color: #4CAF50;
+            color: white;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 15px;
+            padding: 20px;
             position: relative;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .header h1 {
-            font-size: 24px;
+            font-size: 28px;
             margin: 0;
+            font-weight: 700;
         }
 
         .theme-toggle {
             position: absolute;
             left: 20px;
-            top: 15px;
+            top: 50%;
+            transform: translateY(-50%);
             font-size: 24px;
             cursor: pointer;
+            transition: transform 0.3s ease;
         }
 
+        .theme-toggle:hover {
+            transform: translateY(-50%) rotate(180deg);
+        }
+
+        /* الشبكة */
         .grid-container {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
             padding: 20px;
             flex-grow: 1;
         }
 
         .grid-item {
-            background-color: #f6f6c4;
-            border: 2px solid #8bc34a;
-            border-radius: 10px;
+            background-color: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
             text-align: center;
-            padding: 20px;
+            padding: 25px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s ease, background-color 0.2s ease;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
             cursor: pointer;
         }
 
+        .grid-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
         .grid-item:active {
-            transform: scale(0.95);
-            background-color: #d4e893;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transform: scale(0.98);
         }
 
         .grid-item p {
             margin: 0;
-            font-size: 16px;
-            font-weight: bold;
+            font-size: 18px;
+            font-weight: 600;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -78,79 +99,72 @@
         }
 
         .grid-item p i {
-            font-size: 30px;
+            font-size: 32px;
+            color: #4CAF50;
         }
 
-        body.dark-mode {
-            background-color: #333;
-            color: #fff;
-        }
-
-        body.dark-mode .header {
-            background-color: #444;
-        }
-
-        body.dark-mode .theme-toggle {
-            color: #fff;
-        }
-
+        /* الوضع الليلي للشبكة */
         body.dark-mode .grid-item {
-            background-color: #555;
-            border-color: #333;
+            background-color: #2c2c2c;
+            border-color: #444;
         }
 
         body.dark-mode .grid-item p i {
-            color: #fff;
+            color: #4CAF50;
         }
 
-        body.dark-mode .footer {
-            background-color: #444;
-            color: #fff;
-        }
-
+        /* الفوتر */
         .footer {
             text-align: center;
-            padding: 15px;
+            padding: 20px;
             margin-top: auto;
+            background-color: #4CAF50;
+            color: white;
+            box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
         }
 
+        .footer a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* زر الواتساب */
         .whatsapp-button {
             position: fixed;
             bottom: 20px;
             left: 20px;
             background: linear-gradient(45deg, #25D366, #128C7E);
             color: white;
-            padding: 10px 15px;
+            padding: 15px;
             border-radius: 50%;
             box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
             z-index: 1000;
-            font-size: 14px;
-            font-weight: bold;
+            font-size: 24px;
             cursor: pointer;
             transition: all 0.3s ease;
         }
 
         .whatsapp-button:hover {
             transform: scale(1.1);
-            background: linear-gradient(45deg, #128C7E, #25D366);
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
         }
 
-        .whatsapp-button i {
-            font-size: 22px;
-        }
-
-        /* التنسيق للرسالة المنبثقة */
+        /* الرسالة المنبثقة */
         .popup-message {
             position: fixed;
             top: 20px;
             right: 20px;
-            background-color: #fff;
+            background-color: white;
             padding: 20px;
-            border-radius: 10px;
+            border-radius: 12px;
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
             font-size: 16px;
             color: #333;
@@ -159,33 +173,63 @@
         }
 
         .popup-message button {
-            background-color: #ffda44;
+            background-color: #4CAF50;
             border: none;
             padding: 10px 15px;
             border-radius: 5px;
+            color: white;
             cursor: pointer;
+            font-weight: 600;
+            margin-top: 10px;
         }
 
         .popup-message button:hover {
-            background-color: #ffca29;
+            background-color: #45a049;
         }
 
         /* زر تحميل التطبيق */
         .download-button {
-            background-color: #ff7f50;
+            background-color: #FF5722;
             color: white;
             padding: 15px 30px;
-            border-radius: 5px;
+            border-radius: 8px;
             font-size: 18px;
             text-align: center;
-            margin: 20px;
+            margin: 20px auto;
             display: block;
             cursor: pointer;
             text-decoration: none;
+            transition: background-color 0.3s ease;
         }
 
         .download-button:hover {
-            background-color: #ff5722;
+            background-color: #E64A19;
+        }
+
+        /* التصميم للشاشات الصغيرة */
+        @media (max-width: 768px) {
+            .grid-container {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 15px;
+                padding: 15px;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .grid-item p {
+                font-size: 16px;
+            }
+
+            .grid-item p i {
+                font-size: 28px;
+            }
+
+            .whatsapp-button {
+                font-size: 20px;
+                padding: 12px;
+            }
         }
     </style>
 </head>
@@ -247,9 +291,7 @@
 
     <div class="footer">
         <p>© 2025 جميع الحقوق محفوظة | 
-            <a href="spishla.html" target="_blank" style="text-decoration: none; color: #000;">
-                الخصوصية
-            </a>
+            <a href="spishla.html" target="_blank">الخصوصية</a>
         </p>
     </div>
 
