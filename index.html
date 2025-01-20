@@ -200,10 +200,22 @@
             cursor: pointer;
             text-decoration: none;
             transition: background-color 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
 
         .download-button:hover {
             background-color: #E64A19;
+        }
+
+        .download-button .progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.3);
+            width: 0;
+            transition: width 1s linear;
         }
 
         /* التصميم للشاشات الصغيرة */
@@ -230,6 +242,38 @@
                 font-size: 20px;
                 padding: 12px;
             }
+        }
+
+        /* رسالة الترحيب */
+        .welcome-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+            font-size: 16px;
+            color: #333;
+            display: none;
+            z-index: 1001;
+            text-align: center;
+        }
+
+        .welcome-message button {
+            background-color: #4CAF50;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .welcome-message button:hover {
+            background-color: #45a049;
         }
     </style>
 </head>
@@ -287,7 +331,10 @@
     </div>
 
     <!-- زر تحميل التطبيق -->
-    <a href="https://avecare.github.io/Newavicar/" class="download-button">تحميل التطبيق الآن</a>
+    <a href="#" class="download-button" id="downloadButton">
+        <span>تحميل التطبيق الآن</span>
+        <div class="progress"></div>
+    </a>
 
     <div class="footer">
         <p>© 2025 جميع الحقوق محفوظة | 
@@ -306,6 +353,12 @@
         <button onclick="closePopup()">موافق</button>
     </div>
 
+    <!-- رسالة الترحيب -->
+    <div id="welcomeMessage" class="welcome-message">
+        <p>مرحبًا بك في موقع رعاية الدجاج! نتمنى لك تجربة ممتعة.</p>
+        <button onclick="closeWelcomeMessage()">موافق</button>
+    </div>
+
     <script>
         function toggleTheme() {
             const icon = document.querySelector('.theme-toggle i');
@@ -319,16 +372,68 @@
             }
         }
 
-        // عرض الرسالة مباشرة عند تحميل الصفحة
-        window.onload = function() {
-            setTimeout(() => {
+        // عرض الرسالة المنبثقة "يفضل استخدام وضع سطح المكتب" مرة واحدة يوميًا
+        function showPopupMessage() {
+            const lastShown = localStorage.getItem('popupMessageLastShown');
+            const now = new Date().getTime();
+            const oneDay = 24 * 60 * 60 * 1000; // يوم واحد بالميلي ثانية
+
+            if (!lastShown || now - lastShown > oneDay) {
                 document.getElementById('popupMessage').style.display = 'block';
-            }, 1000); // تظهر بعد ثانية من تحميل الصفحة
-        };
+                localStorage.setItem('popupMessageLastShown', now); // حفظ تاريخ العرض
+            }
+        }
 
         function closePopup() {
             document.getElementById('popupMessage').style.display = 'none';
         }
+
+        // عرض الرسالة المنبثقة عند تحميل الصفحة
+        window.onload = function() {
+            showPopupMessage(); // عرض الرسالة المنبثقة
+        };
+
+        // تعديل زر التحميل
+        document.getElementById('downloadButton').addEventListener('click', function(event) {
+            event.preventDefault(); // منع الانتقال المباشر
+            const button = this;
+            const progress = button.querySelector('.progress');
+            const text = button.querySelector('span');
+            let seconds = 5;
+
+            button.style.pointerEvents = 'none'; // تعطيل النقر أثناء التحميل
+            progress.style.width = '0'; // إعادة تعيين العرض
+
+            const interval = setInterval(() => {
+                seconds--;
+                text.textContent = `جاري التحميل... (${seconds} ثانية)`; // تحديث النص
+                progress.style.width = `${((5 - seconds) / 5) * 100}%`; // تحديث التعبئة
+
+                if (seconds === 0) {
+                    clearInterval(interval); // إيقاف العد التنازلي
+                    window.location.href = 'https://avecare.github.io/Newavicar/'; // الانتقال بعد 5 ثوانٍ
+                }
+            }, 1000); // تحديث كل ثانية
+        });
+
+        // رسالة الترحيب
+        function showWelcomeMessage() {
+            const lastShown = localStorage.getItem('welcomeMessageLastShown');
+            const now = new Date().getTime();
+            const twoWeeks = 14 * 24 * 60 * 60 * 1000; // أسبوعين بالميلي ثانية
+
+            if (!lastShown || now - lastShown > twoWeeks) {
+                document.getElementById('welcomeMessage').style.display = 'block';
+                localStorage.setItem('welcomeMessageLastShown', now); // حفظ تاريخ العرض
+            }
+        }
+
+        function closeWelcomeMessage() {
+            document.getElementById('welcomeMessage').style.display = 'none';
+        }
+
+        // عرض رسالة الترحيب عند تحميل الصفحة
+        showWelcomeMessage();
     </script>
 </body>
 </html>
