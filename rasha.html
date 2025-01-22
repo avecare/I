@@ -11,6 +11,7 @@
             color: #333;
             margin: 0;
             padding: 0;
+            user-select: none; /* يمنع تحديد النص */
         }
         .container {
             max-width: 800px;
@@ -61,7 +62,7 @@
         }
     </style>
 </head>
-<body>
+<body oncontextmenu="return false;"> <!-- يمنع النقر بزر الماوس الأيمن -->
     <div class="container">
         <h1>إرشادات لعلاج رشحة الدجاج</h1>
         
@@ -103,7 +104,7 @@
             <ul>
                 <li>عزل الطيور المصابة فورًا لمنع انتشار العدوى بين بقية القطيع.</li>
                 <li>تنظيف المشارب وتعقيمها يوميًا باستخدام محلول اليود الأحمر (المخصص للمستشفيات).</li>
-                <li>يُفضل استشارة طبيب بيطري للتأكد من التشخيص وسلامة العلاج.</li>
+                <li></li>
             </ul>
         </div>
 
@@ -112,6 +113,23 @@
             <p>حافظ على نظافة المكان وتجنب تعرض الدجاج لتيارات هوائية باردة.</p>
         </div>
     </div>
+
+    <script>
+        // منع النسخ باستخدام JavaScript
+        document.addEventListener('copy', function(e) {
+            e.preventDefault();
+            alert('النسخ غير مسموح به في هذه الصفحة.');
+        });
+
+        document.addEventListener('cut', function(e) {
+            e.preventDefault();
+            alert('القص غير مسموح به في هذه الصفحة.');
+        });
+
+        document.addEventListener('paste', function(e) {
+            e.preventDefault();
+            alert('اللصق غير مسموح به في هذه الصفحة.');
+        });
+    </script>
 </body>
 </html>
-
