@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://avecare.github.io/I/sitemap.xml
