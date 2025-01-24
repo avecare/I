@@ -47,9 +47,16 @@
             border-left: 5px solid #4CAF50;
             margin: 20px 0;
         }
+        /* تعطيل تحديد النص */
+        body {
+            -webkit-user-select: none; /* Safari */
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* IE10+/Edge */
+            user-select: none; /* Standard */
+        }
     </style>
 </head>
-<body>
+<body oncontextmenu="return false;">
     <div class="container">
         <h1>فوائد نبتة القريص (الحريق) للدجاج</h1>
         <img src="https://a.top4top.io/p_33114mcm70.jpg" alt="صورة نبتة القريص">
@@ -119,5 +126,31 @@
             <p><strong>المراقبة:</strong> راقب استجابة الدجاج عند تقديم القريص، وأوقفه في حال ظهور أعراض غير طبيعية.</p>
         </div>
     </div>
+
+    <script>
+        // منع النسخ باستخدام JavaScript
+        document.addEventListener('copy', function(e) {
+            e.preventDefault();
+            alert('النسخ غير مسموح به في هذه الصفحة.');
+        });
+
+        document.addEventListener('cut', function(e) {
+            e.preventDefault();
+            alert('القص غير مسموح به في هذه الصفحة.');
+        });
+
+        document.addEventListener('paste', function(e) {
+            e.preventDefault();
+            alert('اللصق غير مسموح به في هذه الصفحة.');
+        });
+
+        // إضافة رسالة تحذيرية عند محاولة التقاط لقطة شاشة
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'PrintScreen' || (e.ctrlKey && e.key === 'p')) {
+                e.preventDefault();
+                alert('التقاط الشاشة غير مسموح به في هذه الصفحة.');
+            }
+        });
+    </script>
 </body>
 </html>
