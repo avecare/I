@@ -218,6 +218,31 @@
             transition: width 1s linear;
         }
 
+        /* زر الإعلانات */
+        .ad-button {
+            background-color: #FFC107;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 18px;
+            text-align: center;
+            margin: 20px auto;
+            display: block;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ad-button:hover {
+            background-color: #FFA000;
+        }
+
+        .ad-button i {
+            margin-left: 10px;
+        }
+
         /* التصميم للشاشات الصغيرة */
         @media (max-width: 768px) {
             .grid-container {
@@ -329,6 +354,12 @@
             <p><i class="fas fa-info-circle"></i> حول التطبيق</p>
         </div>
     </div>
+
+    <!-- زر الإعلانات -->
+    <a href="ads.html" class="ad-button">
+        <span>الإعلانات</span>
+        <i class="fas fa-bullhorn"></i>
+    </a>
 
     <!-- زر تحميل التطبيق -->
     <a href="#" class="download-button" id="downloadButton">
