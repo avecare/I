@@ -448,11 +448,52 @@
             <a href="https://wa.me/962782198029" class="whatsapp-btn">تواصل عبر واتساب</a>
         </div>
     </div>
-
     <!-- Popup للإعلان 10 -->
     <div id="ad10" class="popup">
         <div class="popup-content animate__animated animate__fadeIn">
             <span class="close" onclick="closePopup('ad10')">×</span>
             <div class="swiper-container">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide"><im
+                    <div class="swiper-slide"><img src="https://h.top4top.io/p_3310svu6j0.png" alt="صورة 1"></div>
+                    <div class="swiper-slide"><img src="ad10-2.jpg" alt="صورة 2"></div>
+                    <div class="swiper-slide"><img src="ad10-3.jpg" alt="صورة 3"></div>
+                    <div class="swiper-slide"><img src="ad10-4.jpg" alt="صورة 4"></div>
+                    <div class="swiper-slide"><img src="ad10-5.jpg" alt="صورة 5"></div>
+                    <div class="swiper-slide"><img src="ad10-6.jpg" alt="صورة 6"></div>
+                    <div class="swiper-slide"><img src="ad10-7.jpg" alt="صورة 7"></div>
+                    <div class="swiper-slide"><img src="ad10-8.jpg" alt="صورة 8"></div>
+                </div>
+                <!-- إضافة أسهم التنقل -->
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+            <h2>عنوان الإعلان 10</h2>
+            <p>تفاصيل الإعلان 10 هنا...</p>
+            <a href="https://wa.me/962782198029" class="whatsapp-btn">تواصل عبر واتساب</a>
+        </div>
+    </div>
+
+    <!-- رابط مكتبة Swiper.js -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        // JavaScript
+        function openPopup(adId) {
+            const popup = document.getElementById(adId);
+            popup.style.display = 'flex';
+
+            // تهيئة Swiper عند فتح الصفحة المنبثقة
+            new Swiper(`#${adId} .swiper-container`, {
+                navigation: {
+                    nextEl: `.swiper-button-next`,
+                    prevEl: `.swiper-button-prev`,
+                },
+                loop: true,
+            });
+        }
+
+        function closePopup(adId) {
+            document.getElementById(adId).style.display = 'none';
+        }
+    </script>
+</body>
+</html>
