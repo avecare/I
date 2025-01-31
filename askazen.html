@@ -84,6 +84,48 @@
             padding: 20px;
             margin-top: 30px;
         }
+        
+        /* أنماط قسم الوسائط الجديدة */
+        .media-section {
+            margin: 30px 0;
+            padding: 15px 0;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+        .media-container {
+            display: flex;
+            gap: 20px;
+            padding: 10px;
+        }
+        .media-item {
+            flex: 0 0 auto;
+            width: 300px;
+            height: 200px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background: #fff;
+        }
+        .media-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .media-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        ::-webkit-scrollbar {
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
     </style>
     <script>
         document.addEventListener('copy', function (e) {
@@ -114,13 +156,34 @@
             <li>توقف النمو أو ضعف الريش.</li>
             <li>انتفاخ البطن أو ظهور علامات الألم عند الضغط عليها.</li>
         </ul>
+        
+        <!-- قسم الوسائط المضاف -->
+        <div class="media-section">
+            <div class="media-container">
+                <div class="media-item">
+                    <video controls>
+                        <source src="https://i.top4top.io/m_3318yrjsb0.mp4" type="video/mp4">
+                        متصفحك لا يدعم تشغيل الفيديو
+                    </video>
+                </div>
+                <div class="media-item">
+                    <video controls>
+                        <source src="https://j.top4top.io/m_33187qbe01.mp4" type="video/mp4">
+                        متصفحك لا يدعم تشغيل الفيديو
+                    </video>
+                </div>
+                <div class="media-item">
+                    <img src="https://k.top4top.io/p_33185pxpl2.jpg" alt="صورة توضيحية للديدان">
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="content">
         <h2>طريقة الاستخدام:</h2>
         <p>لإتمام العلاج باستخدام الاسكازين البيطري، يجب تجويع الطيور وتعطشها من الليل وحتى الصباح. ثم يتم وضع ملعقة صغيرة من الاسكازين في لتر من الماء ولمدة 4 ساعات، بعد ذلك يتم وضع العلف بعد ساعتين من شرب الاسكازين. يجب تجديد الجرعة بعد 4 ساعات، وتكرار الجرعة في اليوم التالي بنفس الطريقة.</p>
 
-        <p>في اليوم الثالث، من الضروري إعطاء فيتامينات كوليفيت البيطرية لمدة يومين. بعد ذلك، يتم تقديم منقوع الحلبة بترك ملعقة كبيرة من الحلبة في لتر من الماء لمدة يوم، ثم تصفيته وتقديمه للطيور دون تخفيفه في المشرب.</p>
+        <p>في اليوم الثالث، من الضروري إعطاء فيتامينات كوليفيت البيطرية لمدة يومين. بعد ذلك، يتم تقديم منقوع الحلبة بترك ملعقة كبيرة من الحلبة في لتر من الماء لمدة يوم، ثم تصفيته وتقديمه للطيور دون تخذفيه في المشرب.</p>
 
         <p>في اليوم السادس، يجب تقديم دواء فلاجيل بملعقة صغيرة على لتر ماء أو ملعقتين على لتر ماء.</p>
     </div>
@@ -141,10 +204,6 @@
         </ul>
     </div>
 </div>
-
-<footer>
-    <p>© 2025 جميع الحقوق محفوظة</p>
-</footer>
 
 </body>
 </html>
